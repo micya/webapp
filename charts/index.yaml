@@ -1,0 +1,25 @@
+apiVersion: v1
+entries:
+  webapp-linux:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-10-05T23:21:58.549318137Z"
+    description: Empty ASP.NET MVC app
+    digest: bdcc6be8311f7b47352625247237b25afe1e63f8a8087cefcd357825058f9c39
+    name: webapp-linux
+    type: application
+    urls:
+    - webapp-linux-0.1.0.tgz
+    version: 0.1.0
+  webapp-windows:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-10-05T23:21:58.549885239Z"
+    description: Empty ASP.NET MVC app
+    digest: b4be9cc7f509453e2c4df79e063eadd6452ecb47ad2d4eb130a12eee62ece4c0
+    name: webapp-windows
+    type: application
+    urls:
+    - webapp-windows-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-10-05T23:21:58.548459334Z"
