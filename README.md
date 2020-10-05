@@ -2,8 +2,8 @@ Empty ASP.NET MVC web app.
 
 Dockerfiles:
 
-- [Linux](Containers/Dockerfiles/linux.dockerfile)
-- [Windows](Containers/Dockerfiles/windows.dockerfile) (nanoserver)
+- [Linux](dockerfiles/linux.dockerfile)
+- [Windows](dockerfiles/windows.dockerfile) (nanoserver)
 
 Images published to [DockerHub](https://hub.docker.com/repository/docker/micya/webapp/general):
 
@@ -12,9 +12,9 @@ Images published to [DockerHub](https://hub.docker.com/repository/docker/micya/w
 
 Kubernetes deployment files:
 
-- [Linux](Containers/Kubernetes/webapp-linux.yaml)
-- [Windows](Containers/Kubernetes/webapp-windows.yaml)
+- [Linux](deployments/webapp-linux.yaml)
+- [Windows](deployments/webapp-windows.yaml)
 
 Helm charts:
-- [Linux](Containers/Helm/webapp-linux)
-- [Windows](Containers/Helm/webapp-windows)
+- [Linux](charts/webapp-linux)
+- [Windows](charts/webapp-windows)
