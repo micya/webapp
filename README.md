@@ -14,3 +14,7 @@ Kubernetes deployment files:
 
 - [Linux](Containers/Kubernetes/webapp-linux.yaml)
 - [Windows](Containers/Kubernetes/webapp-windows.yaml)
+
+Helm charts:
+- [Linux](Containers/Helm/webapp-linux)
+- [Windows](Containers/Helm/webapp-windows)
