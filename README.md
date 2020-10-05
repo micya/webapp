@@ -18,3 +18,14 @@ Kubernetes deployment files:
 Helm charts:
 - [Linux](charts/webapp-linux)
 - [Windows](charts/webapp-windows)
+
+Deploy helm chart as below:
+
+```bash
+# add repo
+helm repo add webapp https://raw.githubusercontent.com/micya/webapp/master/charts
+# install linux helm chart
+helm install webapp-linux webapp/webapp-linux
+# install windows helm chart
+helm install webapp-windows webapp/webapp-windows
+```
