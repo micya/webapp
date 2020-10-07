@@ -12,8 +12,8 @@ Images published to [DockerHub](https://hub.docker.com/repository/docker/micya/w
 
 Kubernetes deployment files:
 
-- [Linux](deployments/webapp-linux.yaml)
-- [Windows](deployments/webapp-windows.yaml)
+- [Linux](deployment/webapp-linux.yaml)
+- [Windows](deployment/webapp-windows.yaml)
 
 Helm charts:
 - [Linux](charts/webapp-linux)
