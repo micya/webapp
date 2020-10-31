@@ -5,11 +5,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: webapp
+      app: webapp-linux
   template:
     metadata:
       labels:
-        app: webapp
+        app: webapp-linux
     spec:
       nodeSelector:
         "beta.kubernetes.io/os": "linux"

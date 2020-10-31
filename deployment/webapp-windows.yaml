@@ -5,11 +5,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: webapp
+      app: webapp-windows
   template:
     metadata:
       labels:
-        app: webapp
+        app: webapp-windows
     spec:
       nodeSelector:
         "beta.kubernetes.io/os": "windows"
