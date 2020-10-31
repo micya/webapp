@@ -15,7 +15,7 @@ spec:
         "beta.kubernetes.io/os": "windows"
       containers:
       - name: webapp-windows
-        image: micya/webapp:windows
+        image: ghcr.io/micya/webapp:windows
         # resources:
         #   limits:
         #     memory: "128Mi"

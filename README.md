@@ -5,10 +5,10 @@ Dockerfiles:
 - [Linux](dockerfiles/linux.dockerfile)
 - [Windows](dockerfiles/windows.dockerfile) (nanoserver)
 
-Images published to [DockerHub](https://hub.docker.com/repository/docker/micya/webapp/general):
+Images published to [GitHub container registry](https://github.com/users/micya/packages/container/package/webapp):
 
-- Linux: micya/webapp:linux
-- Windows: micya/webapp:windows
+- Linux: ghcr.io/micya/webapp:linux
+- Windows: ghcr.io/micya/webapp:windows
 
 Kubernetes deployment files:
 

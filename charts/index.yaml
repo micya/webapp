@@ -3,9 +3,9 @@ entries:
   webapp-linux:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-10-05T23:21:58.549318137Z"
+    created: "2020-10-31T01:19:21.293629925Z"
     description: Empty ASP.NET MVC app
-    digest: bdcc6be8311f7b47352625247237b25afe1e63f8a8087cefcd357825058f9c39
+    digest: 6c1a9f690d3c389c39ccc9b5f022e535c8868aa799d2e6213fb0b83136882ba6
     name: webapp-linux
     type: application
     urls:
@@ -14,12 +14,12 @@ entries:
   webapp-windows:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-10-05T23:21:58.549885239Z"
+    created: "2020-10-31T01:19:21.29422165Z"
     description: Empty ASP.NET MVC app
-    digest: b4be9cc7f509453e2c4df79e063eadd6452ecb47ad2d4eb130a12eee62ece4c0
+    digest: af4ce4a0bec0c5b55f775a28909a640bcb63bfbef13bff7f061a3ece86d3a548
     name: webapp-windows
     type: application
     urls:
     - webapp-windows-0.1.0.tgz
     version: 0.1.0
-generated: "2020-10-05T23:21:58.548459334Z"
+generated: "2020-10-31T01:19:21.292858994Z"
