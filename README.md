@@ -2,8 +2,8 @@ Empty ASP.NET MVC web app.
 
 Dockerfiles:
 
-- [Linux](dockerfiles/linux.dockerfile)
-- [Windows](dockerfiles/windows.dockerfile) (nanoserver)
+- [Linux](dockerfile/linux.dockerfile)
+- [Windows](dockerfile/windows.dockerfile) (nanoserver)
 
 Images published to [GitHub container registry](https://github.com/users/micya/packages/container/package/webapp):
 
