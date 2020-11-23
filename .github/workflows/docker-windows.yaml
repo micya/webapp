@@ -8,15 +8,15 @@ on:
   push:
     branches: [ master ]
     paths: 
-      - "!dockerfile/**"
-      - "!deployment/**"
-      - "!charts/**"
+      - "dockerfile/**"
+      - "deployment/**"
+      - "charts/**"
   pull_request:
     branches: [ master ]
     paths:
-      - "!dockerfile/**"
-      - "!deployment/**"
-      - "!charts/**"
+      - "dockerfile/**"
+      - "deployment/**"
+      - "charts/**"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
