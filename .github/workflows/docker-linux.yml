@@ -36,7 +36,7 @@ jobs:
         run: |
           IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG
           echo "Building image: $IMAGE_ID"
-          docker build -f $DOCKERFILE -t  $IMAGE_ID.
+          docker build -f $DOCKERFILE -t  $IMAGE_ID .
           
       - name: Docker push
         run: |
