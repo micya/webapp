@@ -7,13 +7,13 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
-    paths: 
+    paths-ignore: 
       - "dockerfile/**"
       - "deployment/**"
       - "charts/**"
   pull_request:
     branches: [ master ]
-    paths:
+    paths-ignore:
       - "dockerfile/**"
       - "deployment/**"
       - "charts/**"
