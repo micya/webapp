@@ -13,6 +13,9 @@ on:
       - "!charts/**"
   pull_request:
     branches: [ master ]
+      - "!dockerfile/**"
+      - "!deployment/**"
+      - "!charts/**"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
