@@ -18,6 +18,9 @@ env:
   IMAGE_NAME: webapp
   IMAGE_TAG: linux
   DOCKERFILE: dockerfile/linux.dockerfile
+  
+  GHCR_USERNAME: ${{ secrets.GHCR_USERNAME}}
+  GHCR_PAT: ${{ secrets.GHCR_PAT }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -37,6 +40,11 @@ jobs:
           IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG
           echo "Building image: $IMAGE_ID"
           docker build -f $DOCKERFILE -t  $IMAGE_ID .
+          
+      - name: GitHub container registry login
+        run: |
+          echo "Logging in to container registry"
+          echo $GHCR_PAT | docker login ghcr.io -u USERNAME --password-stdin
           
       - name: Docker push
         run: |
