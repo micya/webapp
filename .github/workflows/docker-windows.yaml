@@ -7,6 +7,10 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
+    paths: 
+      - "!dockerfile/**"
+      - "!deployment/**"
+      - "!charts/**"
   pull_request:
     branches: [ master ]
 
@@ -36,17 +40,17 @@ jobs:
       # Build docker image
       - name: Docker build
         run: |
-          IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG
-          echo "Building image: $IMAGE_ID"
-          docker build -f $DOCKERFILE -t  $IMAGE_ID .
+          IMAGE_ID=${IMAGE_REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
+          echo "Building image: ${IMAGE_ID}"
+          docker build -f ${DOCKERFILE} -t ${IMAGE_ID} .
           
       - name: GitHub container registry login
         run: |
           echo "Logging in to container registry"
-          echo $GHCR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+          echo ${GHCR_PAT} | docker login ghcr.io -u USERNAME --password-stdin
           
       - name: Docker push
         run: |
-          IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG
+          IMAGE_ID=${IMAGE_REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
           echo "Pushing image: $IMAGE_ID"
-          docker push $IMAGE_ID
+          docker push ${IMAGE_ID}
