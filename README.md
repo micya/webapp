@@ -24,8 +24,11 @@ Deploy helm chart as below:
 ```bash
 # add repo
 helm repo add webapp https://raw.githubusercontent.com/micya/webapp/master/charts
+helm repo update
+
 # install linux helm chart
 helm install webapp-linux webapp/webapp-linux
+
 # install windows helm chart
 helm install webapp-windows webapp/webapp-windows
 ```
