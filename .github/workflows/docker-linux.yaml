@@ -27,6 +27,9 @@ env:
   IMAGE_TAG: linux
   DOCKERFILE: dockerfile/linux.dockerfile
 
+  GIT_HASH: ${{ $(git rev-parse --short "$GITHUB_SHA") }}
+  IMAGE_ID: ${{ $IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG-$GIT_HASH }}
+
   GHCR_PAT: ${{ secrets.GHCR_PAT }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -44,8 +47,6 @@ jobs:
       # Build docker image
       - name: Docker build
         run: |
-          GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
-          IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG-$GIT_HASH
           echo "Building image: $IMAGE_ID"
           docker build -f $DOCKERFILE -t $IMAGE_ID .
           
