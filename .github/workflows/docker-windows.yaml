@@ -38,14 +38,14 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
       # Generate env variables
       - name: Generate env variables
         run: |
           ${env:GIT_HASH}=git rev-parse --short "${env:GITHUB_SHA}"
           echo IMAGE_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:IMAGE_TAG}-${env:GIT_HASH}" >> ${env:GITHUB_ENV}
-
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
 
       # Build docker image
       - name: Docker build
