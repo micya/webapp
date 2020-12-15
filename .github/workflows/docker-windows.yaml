@@ -44,7 +44,8 @@ jobs:
       # Build docker image
       - name: Docker build
         run: |
-          ${env:IMAGE_ID}="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:IMAGE_TAG}"
+          ${env:GIT_HASH}=$(git rev-parse --short "$GITHUB_SHA")
+          ${env:IMAGE_ID}="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:IMAGE_TAG}-${env:GIT_HASH}"
           echo "Building image: ${env:IMAGE_ID}"
           docker build -f ${env:DOCKERFILE} -t ${env:IMAGE_ID} .
           
@@ -55,6 +56,5 @@ jobs:
           
       - name: Docker push
         run: |
-          ${env:IMAGE_ID}="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:IMAGE_TAG}"
           echo "Pushing image: ${env:IMAGE_ID}"
           docker push ${env:IMAGE_ID}
