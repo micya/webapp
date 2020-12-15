@@ -41,7 +41,7 @@ jobs:
       # Generate env variables
       - name: Generate env variables
         run: |
-          GIT_HASH=git rev-parse --short "${env:GITHUB_SHA}"
+          ${env:GIT_HASH}=git rev-parse --short "${env:GITHUB_SHA}"
           echo IMAGE_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:IMAGE_TAG}-${env:GIT_HASH}" >> ${env:GITHUB_ENV}
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
