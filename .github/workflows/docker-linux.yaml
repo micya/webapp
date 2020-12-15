@@ -27,9 +27,6 @@ env:
   IMAGE_TAG: linux
   DOCKERFILE: dockerfile/linux.dockerfile
 
-  GIT_HASH: ${{ $(git rev-parse --short "$GITHUB_SHA") }}
-  IMAGE_ID: ${{ $IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG-$GIT_HASH }}
-
   GHCR_PAT: ${{ secrets.GHCR_PAT }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -45,10 +42,15 @@ jobs:
       - uses: actions/checkout@v2
 
       # Build docker image
+      - name: Generate image tag
+        run: |
+          GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
+          GITHUB_IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG-$GIT_HASH
+
       - name: Docker build
         run: |
-          echo "Building image: $IMAGE_ID"
-          docker build -f $DOCKERFILE -t $IMAGE_ID .
+          echo "Building image: $GITHUB_IMAGE_ID"
+          docker build -f $DOCKERFILE -t $GITHUB_IMAGE_ID .
           
       - name: GitHub container registry login
         run: |
@@ -57,5 +59,5 @@ jobs:
           
       - name: Docker push
         run: |
-          echo "Pushing image: $IMAGE_ID"
-          docker push $IMAGE_ID
+          echo "Pushing image: $GITHUB_IMAGE_ID"
+          docker push $GITHUB_IMAGE_ID
