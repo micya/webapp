@@ -41,16 +41,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Build docker image
-      - name: Generate image tag
+      # Generate env variables
+      - name: Generate env variables
         run: |
           GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
-          GITHUB_IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG-$GIT_HASH
+          echo "IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG-$GIT_HASH" >> $GITHUB_ENV 
 
+      # Build docker image
       - name: Docker build
         run: |
-          echo "Building image: $GITHUB_IMAGE_ID"
-          docker build -f $DOCKERFILE -t $GITHUB_IMAGE_ID .
+          echo "Building image: $IMAGE_ID"
+          docker build -f $DOCKERFILE -t $IMAGE_ID .
           
       - name: GitHub container registry login
         run: |
@@ -59,5 +60,5 @@ jobs:
           
       - name: Docker push
         run: |
-          echo "Pushing image: $GITHUB_IMAGE_ID"
-          docker push $GITHUB_IMAGE_ID
+          echo "Pushing image: $IMAGE_ID"
+          docker push $IMAGE_ID
