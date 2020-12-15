@@ -44,8 +44,8 @@ jobs:
       # Generate env variables
       - name: Generate env variables
         run: |
-          GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
-          echo IMAGE_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:IMAGE_TAG}-${env:GIT_HASH}" >> $GITHUB_ENV 
+          GIT_HASH=$(git rev-parse --short "${env:GITHUB_SHA}")
+          echo IMAGE_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:IMAGE_TAG}-${env:GIT_HASH}" >> ${env:GITHUB_ENV}
 
       # Build docker image
       - name: Docker build
