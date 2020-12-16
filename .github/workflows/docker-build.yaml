@@ -25,6 +25,9 @@ env:
   IMAGE_REPOSITORY: ghcr.io/micya
   IMAGE_NAME: webapp
 
+  LINUX_IMAGE_TAG: linux
+  WINDOWS_IMAGE_TAG: windows
+
   GHCR_PAT: ${{ secrets.GHCR_PAT }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -35,7 +38,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_TAG: linux
       DOCKERFILE: dockerfile/linux.dockerfile
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -47,7 +49,7 @@ jobs:
       - name: Generate env variables
         run: |
           GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
-          echo "IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG-$GIT_HASH" >> $GITHUB_ENV 
+          echo "IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$LINUX_IMAGE_TAG-$GIT_HASH" >> $GITHUB_ENV 
 
       # Build docker image
       - name: Docker build
@@ -70,7 +72,6 @@ jobs:
     runs-on: windows-latest
 
     env:
-      IMAGE_TAG: windows
       DOCKERFILE: dockerfile/windows.dockerfile
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -82,7 +83,7 @@ jobs:
       - name: Generate env variables
         run: |
           ${env:GIT_HASH}=git rev-parse --short "${env:GITHUB_SHA}"
-          echo IMAGE_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:IMAGE_TAG}-${env:GIT_HASH}" >> ${env:GITHUB_ENV}
+          echo IMAGE_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:WINDOWS_IMAGE_TAG}-${env:GIT_HASH}" >> ${env:GITHUB_ENV}
 
       # Build docker image
       - name: Docker build
@@ -99,3 +100,52 @@ jobs:
         run: |
           echo "Pushing image: ${env:IMAGE_ID}"
           docker push ${env:IMAGE_ID}
+
+  build-manifest:
+    runs-on: ubuntu-latest
+
+    needs:
+    - "build-linux"
+    - "build-windows"
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Generate env variables
+      - name: Generate env variables
+        run: |
+          GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
+          echo "GIT_HASH=$GIT_HASH" >> $GITHUB_ENV
+
+          echo "LINUX_IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$LINUX_IMAGE_TAG-$GIT_HASH" >> $GITHUB_ENV 
+          echo "WINDOWS_IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$WINDOWS_IMAGE_TAG-$GIT_HASH" >> $GITHUB_ENV
+
+          echo "MANIFEST_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$GIT_HASH" >> $GITHUB_ENV
+          echo "MANIFEST_LATEST_ID=$IMAGE_REPOSITORY/$IMAGE_NAME" >> $GITHUB_ENV
+
+      # Build docker image
+      - name: Docker create manifest
+        run: |
+          echo "Building manifest"
+          docker manifest create $MANIFEST_ID \
+              --amend $LINUX_IMAGE_ID \
+              --amend $WINDOWS_IMAGE_ID
+
+      - name: Docker create latest manifest
+        run: |
+          echo "Building latest manifest"
+          docker manifest create $MANIFEST_LATEST_ID \
+              --amend $LINUX_IMAGE_ID \
+              --amend $WINDOWS_IMAGE_ID
+          
+      - name: GitHub container registry login
+        run: |
+          echo "Logging in to container registry"
+          echo $GHCR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+          
+      - name: Docker push manifests
+        run: |
+          docker manifest push $MANIFEST_ID
+          docker manifest push $MANIFEST_LATEST_ID
