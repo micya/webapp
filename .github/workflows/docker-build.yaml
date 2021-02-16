@@ -125,4 +125,4 @@ jobs:
 
       - name: Docker tag latest
         run: |
-          docker tag $IMAGE_ID $IMAGE_LATEST
+          docker buildx imagetools create $IMAGE_ID -t $IMAGE_LATEST
