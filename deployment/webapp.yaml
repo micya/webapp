@@ -1,21 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-windows
+  name: webapp
 spec:
   selector:
     matchLabels:
-      app: webapp-windows
+      app: webapp
   template:
     metadata:
       labels:
-        app: webapp-windows
+        app: webapp
     spec:
-      nodeSelector:
-        "beta.kubernetes.io/os": "windows"
       containers:
-      - name: webapp-windows
-        image: ghcr.io/micya/webapp:windows
+      - name: webapp
+        image: ghcr.io/micya/webapp:latest
         # resources:
         #   limits:
         #     memory: "128Mi"
