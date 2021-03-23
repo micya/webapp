@@ -1,22 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp
+  name: webapp-linux
 spec:
   selector:
     matchLabels:
-      app: webapp
+      app: webapp-linux
   template:
     metadata:
       labels:
-        app: webapp
+        app: webapp-linux
     spec:
+      nodeSelector:
+        "kubernetes.io/os": "linux"
       containers:
       - name: webapp
-        image: ghcr.io/micya/webapp:latest
+        image: ghcr.io/micya/webapp:linux
         # resources:
         #   limits:
         #     memory: "128Mi"
         #     cpu: "500m"
         ports:
         - containerPort: 80
+        imagePullPolicy: Always
