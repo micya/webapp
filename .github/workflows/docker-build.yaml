@@ -25,6 +25,7 @@ env:
   IMAGE_REPOSITORY: ghcr.io/micya
   IMAGE_NAME: webapp
 
+  LINUX_IMAGE_TAG: linux
   WINDOWS_IMAGE_TAG: windows
 
   GHCR_PAT: ${{ secrets.GHCR_PAT }}
@@ -49,6 +50,7 @@ jobs:
         run: |
           GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
           echo "IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$GIT_HASH" >> $GITHUB_ENV
+          echo "LINUX_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$LINUX_TAG" >> $GITHUB_ENV
 
       # Build docker image
       - name: GitHub container registry login
@@ -60,6 +62,11 @@ jobs:
         run: |
           echo "Building image: $IMAGE_ID"
           docker buildx build -f $DOCKERFILE -t $IMAGE_ID --push .
+
+      - name: Docker tag linux image
+        run: |
+          docker tag $IMAGE_ID $LINUX_ID
+          docker push $LINUX_ID
 
   build-windows:
     # The type of runner that the job will run on
@@ -78,6 +85,7 @@ jobs:
         run: |
           ${env:GIT_HASH}=git rev-parse --short "${env:GITHUB_SHA}"
           echo IMAGE_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:WINDOWS_IMAGE_TAG}-${env:GIT_HASH}" >> ${env:GITHUB_ENV}
+          echo WINDOWS_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:WINDOWS_IMAGE_TAG} >> ${env:GITHUB_ENV}
 
       # Build docker image
       - name: GitHub container registry login
@@ -90,6 +98,11 @@ jobs:
           echo "Building image: ${env:IMAGE_ID}"
           docker build -f ${env:DOCKERFILE} -t ${env:IMAGE_ID} .
           docker push ${env:IMAGE_ID}
+
+      - name: Docker tag windows image
+        run: |
+          docker tag ${env:IMAGE_ID} ${env:WINDOWS_ID}
+          docker push ${env:WINDOWS_ID}
 
   build-manifest:
     runs-on: ubuntu-latest
