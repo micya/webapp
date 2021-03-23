@@ -50,7 +50,7 @@ jobs:
         run: |
           GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
           echo "IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$GIT_HASH" >> $GITHUB_ENV
-          echo "LINUX_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$LINUX_TAG" >> $GITHUB_ENV
+          echo "LINUX_ID=$IMAGE_REPOSITORY/$IMAGE_NAME:$LINUX_IMAGE_TAG" >> $GITHUB_ENV
 
       # Build docker image
       - name: GitHub container registry login
@@ -85,7 +85,7 @@ jobs:
         run: |
           ${env:GIT_HASH}=git rev-parse --short "${env:GITHUB_SHA}"
           echo IMAGE_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:WINDOWS_IMAGE_TAG}-${env:GIT_HASH}" >> ${env:GITHUB_ENV}
-          echo WINDOWS_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:WINDOWS_IMAGE_TAG} >> ${env:GITHUB_ENV}
+          echo WINDOWS_ID="${env:IMAGE_REPOSITORY}/${env:IMAGE_NAME}:${env:WINDOWS_IMAGE_TAG}" >> ${env:GITHUB_ENV}
 
       # Build docker image
       - name: GitHub container registry login
