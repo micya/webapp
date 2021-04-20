@@ -3,12 +3,12 @@ entries:
   webapp:
   - apiVersion: v2
     appVersion: latest
-    created: "2021-02-16T03:48:02.367871797Z"
+    created: "2021-04-20T15:45:04.056231643Z"
     description: Empty ASP.NET MVC app
-    digest: 1ba9bd8f1120b93884d72b05c6704a5fa1df714ed9da8fb09eb133f98533aca3
+    digest: a1a8be92e71715d9cfbeeac2ccb40b2821c59b73e19853bac259550aad9e03c6
     name: webapp
     type: application
     urls:
     - webapp-0.1.0.tgz
     version: 0.1.0
-generated: "2021-02-16T03:48:02.366681783Z"
+generated: "2021-04-20T15:45:04.055281648Z"
